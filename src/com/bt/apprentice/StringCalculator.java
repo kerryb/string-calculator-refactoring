@@ -11,16 +11,7 @@ public class StringCalculator {
 
 		String delimiterPattern = extractDelimiterPattern(input);
 		String calculation = extractCalculation(input);
-		
-		String[] numbers = calculation.split(delimiterPattern);
-		int sum = 0;
-		for (String number : numbers) {
-			if (number.contains("-")) {
-				throw new Exception("negatives not allowed " + number);
-			}
-			sum += Integer.parseInt(number);
-		}
-		return sum;
+		return performCalculation(delimiterPattern, calculation);
 	}
 
 	private static String extractDelimiterPattern(final String input) {
@@ -37,5 +28,18 @@ public class StringCalculator {
 		} else {
 			return input;
 		}
+	}
+
+	private static int performCalculation(String delimiterPattern,
+			String calculation) throws Exception {
+		String[] numbers = calculation.split(delimiterPattern);
+		int sum = 0;
+		for (String number : numbers) {
+			if (number.contains("-")) {
+				throw new Exception("negatives not allowed " + number);
+			}
+			sum += Integer.parseInt(number);
+		}
+		return sum;
 	}
 }
