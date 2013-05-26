@@ -8,23 +8,34 @@ public class StringCalculator {
 		if (input == "") {
 			return 0;
 		}
-		
-		String delimiterPattern = DEFAULT_DELIMITER_PATTERN;
-		String calculation = input;
-		
-		if (input.startsWith("//")){
-			delimiterPattern = input.substring(2, 3);
-			calculation = input.substring(4);
-		}
+
+		String delimiterPattern = extractDelimiterPattern(input);
+		String calculation = extractCalculation(input);
 		
 		String[] numbers = calculation.split(delimiterPattern);
 		int sum = 0;
 		for (String number : numbers) {
-			if(number.contains("-")){
+			if (number.contains("-")) {
 				throw new Exception("negatives not allowed " + number);
 			}
 			sum += Integer.parseInt(number);
 		}
 		return sum;
+	}
+
+	private static String extractDelimiterPattern(final String input) {
+		if (input.startsWith("//")) {
+			return input.substring(2, 3);
+		} else {
+			return DEFAULT_DELIMITER_PATTERN;
+		}
+	}
+
+	private static String extractCalculation(final String input) {
+		if (input.startsWith("//")) {
+			return input.substring(4);
+		} else {
+			return input;
+		}
 	}
 }
