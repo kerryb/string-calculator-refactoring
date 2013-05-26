@@ -2,21 +2,21 @@ package com.bt.apprentice;
 
 public class StringCalculator {
 
-	public static int add(String numbers) throws Exception {
-		if (numbers == "") {
+	public static int add(String input) throws Exception {
+		if (input == "") {
 			return 0;
 		}
 		
-		String delimiter = "[,\n]";
+		String delimiterPattern = "[,\n]";
 		
-		if (numbers.startsWith("//")){
-			delimiter = numbers.substring(2, 3);
-			numbers = numbers.substring(4);
+		if (input.startsWith("//")){
+			delimiterPattern = input.substring(2, 3);
+			input = input.substring(4);
 		}
 		
-		String[] splitNumbers = numbers.split(delimiter);
+		String[] numbers = input.split(delimiterPattern);
 		int sum = 0;
-		for (String number : splitNumbers) {
+		for (String number : numbers) {
 			if(number.contains("-")){
 				throw new Exception("negatives not allowed " + number);
 			}
