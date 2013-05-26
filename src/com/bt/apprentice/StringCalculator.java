@@ -1,45 +1,40 @@
 package com.bt.apprentice;
 
 public class StringCalculator {
-
-	private static final String DEFAULT_DELIMITER_PATTERN = "[,\n]";
-
 	public static int add(final String input) throws Exception {
 		if (input == "") {
 			return 0;
 		}
 
-		String delimiterPattern = extractDelimiterPattern(input);
-		String calculation = extractCalculation(input);
-		return performCalculation(delimiterPattern, calculation);
+		Calculation calculation = new Calculation(input);
+		return calculation.performCalculation();
 	}
+}
 
-	private static String extractDelimiterPattern(final String input) {
+class Calculation {
+	private static final String DEFAULT_DELIMITER_PATTERN = "[,\n]";
+	private String delimiterPattern;
+	private String sum;
+
+	public Calculation(final String input) {
 		if (input.startsWith("//")) {
-			return input.substring(2, 3);
+			delimiterPattern = input.substring(2, 3);
+			sum = input.substring(4);
 		} else {
-			return DEFAULT_DELIMITER_PATTERN;
+			delimiterPattern = DEFAULT_DELIMITER_PATTERN;
+			sum = input;
 		}
 	}
 
-	private static String extractCalculation(final String input) {
-		if (input.startsWith("//")) {
-			return input.substring(4);
-		} else {
-			return input;
-		}
-	}
-
-	private static int performCalculation(String delimiterPattern,
-			String calculation) throws Exception {
-		String[] numbers = calculation.split(delimiterPattern);
-		int sum = 0;
+	public int performCalculation() throws Exception {
+		String[] numbers = sum.split(delimiterPattern);
+		int total = 0;
 		for (String number : numbers) {
 			if (number.contains("-")) {
 				throw new Exception("negatives not allowed " + number);
 			}
-			sum += Integer.parseInt(number);
+			total += Integer.parseInt(number);
 		}
-		return sum;
+		return total;
 	}
 }
