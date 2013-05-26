@@ -27,13 +27,14 @@ class Calculation {
 	}
 
 	public int performCalculation() throws Exception {
-		String[] numbers = sum.split(delimiterPattern);
+		String[] operands = sum.split(delimiterPattern);
 		int total = 0;
-		for (String number : numbers) {
-			if (number.contains("-")) {
-				throw new Exception("negatives not allowed " + number);
+		for (String operand : operands) {
+			int number = Integer.parseInt(operand);
+			if (number < 0) {
+				throw new Exception("negatives not allowed " + operand);
 			}
-			total += Integer.parseInt(number);
+			total += number;
 		}
 		return total;
 	}
