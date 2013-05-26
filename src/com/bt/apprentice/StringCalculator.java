@@ -2,10 +2,6 @@ package com.bt.apprentice;
 
 public class StringCalculator {
 	public static int add(final String input) throws Exception {
-		if (input == "") {
-			return 0;
-		}
-
 		Calculation calculation = new Calculation(input);
 		return calculation.performCalculation();
 	}
@@ -30,12 +26,19 @@ class Calculation {
 		String[] operands = sum.split(delimiterPattern);
 		int total = 0;
 		for (String operand : operands) {
-			int number = Integer.parseInt(operand);
-			if (number < 0) {
-				throw new Exception("negatives not allowed " + operand);
-			}
-			total += number;
+			total += convertToInt(operand);
 		}
 		return total;
+	}
+
+	private int convertToInt(String numberAsString) throws Exception {
+		if (numberAsString == "") {
+			return 0;
+		}
+		int number = Integer.parseInt(numberAsString);
+		if (number < 0) {
+			throw new Exception("negatives not allowed " + numberAsString);
+		}
+		return number;
 	}
 }
