@@ -26,19 +26,24 @@ class Calculation {
 		String[] operands = sum.split(delimiterPattern);
 		int total = 0;
 		for (String operand : operands) {
-			total += convertToInt(operand);
+			int number = convertToInt(operand);
+			checkNumberIsNotNegative(number);
+			total += number;
 		}
 		return total;
 	}
 
-	private int convertToInt(String numberAsString) throws Exception {
+	private int convertToInt(String numberAsString) {
 		if (numberAsString == "") {
 			return 0;
+		} else {
+			return Integer.parseInt(numberAsString);
 		}
-		int number = Integer.parseInt(numberAsString);
+	}
+
+	private void checkNumberIsNotNegative(int number) throws Exception {
 		if (number < 0) {
-			throw new Exception("negatives not allowed " + numberAsString);
+			throw new Exception("negatives not allowed " + number);
 		}
-		return number;
 	}
 }
